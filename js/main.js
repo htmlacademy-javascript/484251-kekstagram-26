@@ -9,4 +9,4 @@ getRandomInt(100, 100);
 
 const checkLength = (checkedString, maxLength) => checkedString.length <= maxLength;
 
-console.log(checkLength('qwerty', 5));
+checkLength('qwerty', 5);
