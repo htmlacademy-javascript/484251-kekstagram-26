@@ -1,12 +1,12 @@
-function getRandomInt(min, max) {
-  if (min >= max) {
+const getRandomInt = (min, max) => {
+  if (min < 0 || min >= max) {
     return 0;
   }
-  return Math.round(Math.random() * (max - min)) + min;
-}
+  return Math.round(Math.random() * (max - min) + min);
+};
 
-getRandomInt(100, 100);
+getRandomInt(1.9, 15.6);
 
-const checkLength = (checkedString, maxLength) => checkedString.length <= maxLength;
+const checkStrLength = (checkedString, maxLength) => checkedString.length <= maxLength;
 
-checkLength('qwerty', 5);
+checkStrLength('qwerty', 5);
