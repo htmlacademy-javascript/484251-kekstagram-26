@@ -1,12 +1,14 @@
-const getRandomInt = (min, max) => {
-  if (min >= 0 && min <= max) {
-    return Math.round(Math.random() * (max - min) + min);
-  }
-  return 0;
-};
+function getRandomPositiveInteger (a, b) {
+  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
+}
 
-getRandomInt(100, 100);
+getRandomPositiveInteger(-45.98, -3.67);
 
-const checkStringLength = (checkedString, maxLength) => checkedString.length <= maxLength;
+function checkStringLength (string, length) {
+  return string.length <= length;
+}
 
-checkStringLength('qwerty', 5);
+checkStringLength(HTMLAcademy, 15);
