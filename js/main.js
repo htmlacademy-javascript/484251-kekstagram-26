@@ -43,7 +43,7 @@ function getCommentIDs () {
   let id;
   do {
     id = getRandomPositiveInteger(1, 999);
-  } while (commentIDs.includes(id))
+  } while (commentIDs.includes(id));
   commentIDs.push(id);
   return id;
 }
