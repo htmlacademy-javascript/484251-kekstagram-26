@@ -68,24 +68,20 @@ const getCommentIDs = () => {
 
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-function createComment () {
-  return {
-    id: getCommentIDs(),
-    avatar: `img/avatar-${getRandomPositiveInteger(Avatar.MIN, Avatar.MAX)}.svg`,
-    message: getRandomArrayElement(MESSAGES),
-    name: getRandomArrayElement(NAMES),
-  };
-}
+const createComment = () => ({
+  id: getCommentIDs(),
+  avatar: `img/avatar-${getRandomPositiveInteger(Avatar.MIN, Avatar.MAX)}.svg`,
+  message: getRandomArrayElement(MESSAGES),
+  name: getRandomArrayElement(NAMES),
+});
 
-function createPhoto (id) {
-  return {
-    id,
-    url: `photos/${id}.jpg`,
-    description: 'Придумайте описание',
-    likes: getRandomPositiveInteger(Like.MIN, Like.MAX),
-    comments: Array.from({length: getRandomPositiveInteger(Comment.MIN, Comment.MAX)}, createComment),
-  };
-}
+const createPhoto = (id) => ({
+  id,
+  url: `photos/${id}.jpg`,
+  description: 'Придумайте описание',
+  likes: getRandomPositiveInteger(Like.MIN, Like.MAX),
+  comments: Array.from({length: getRandomPositiveInteger(Comment.MIN, Comment.MAX)}, createComment),
+});
 
 const getSimilarPhotos = (count) => {
   for (let i = 1; i <= count; i ++) {
