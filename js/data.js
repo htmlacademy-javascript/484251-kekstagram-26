@@ -45,7 +45,6 @@ const Comment = {
 };
 
 const commentIDs = [];
-const somePhotos = [];
 
 const getCommentIDs = () => {
   let id;
@@ -72,12 +71,14 @@ const createPhoto = (id) => ({
 });
 
 const getSimilarPhotos = (count) => {
+  const somePhotos = [];
   for (let i = 1; i <= count; i ++) {
     somePhotos.push(createPhoto(i));
   }
+  return somePhotos;
 };
 
-getSimilarPhotos(SIMILAR_PHOTO_COUNT);
-
 //eslint-disable-next-line
-console.log(somePhotos);
+console.log(getSimilarPhotos(SIMILAR_PHOTO_COUNT));
+
+export {getSimilarPhotos};
