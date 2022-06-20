@@ -4,7 +4,6 @@ const pictures = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content;
 
 const miniPictures = getSimilarPhotos(SIMILAR_PHOTO_COUNT);
-console.log(miniPictures);
 
 const miniPictureListFragment = document.createDocumentFragment();
 
