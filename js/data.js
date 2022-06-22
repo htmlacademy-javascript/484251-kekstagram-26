@@ -78,7 +78,6 @@ const getSimilarPhotos = (count) => {
   return somePhotos;
 };
 
-//eslint-disable-next-line
-console.log(getSimilarPhotos(SIMILAR_PHOTO_COUNT));
+const createPhotos = () => getSimilarPhotos(SIMILAR_PHOTO_COUNT);
 
-export {getSimilarPhotos};
+export{createPhotos};
