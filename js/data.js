@@ -78,4 +78,6 @@ const getSimilarPhotos = (count) => {
   return somePhotos;
 };
 
-export {getSimilarPhotos, SIMILAR_PHOTO_COUNT};
+const createPhotos = () => getSimilarPhotos(SIMILAR_PHOTO_COUNT);
+
+export{createPhotos};
