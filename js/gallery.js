@@ -4,7 +4,6 @@ import {renderFullsize} from './fullsize.js';
 
 const dataPhotos = createPhotos();
 renderThumbnails(dataPhotos);
-console.log(dataPhotos);
 
 const listThumbnails = document.querySelectorAll('.picture');
 

@@ -54,8 +54,8 @@ const renderFullsize = (thumb, data) => {
       body.classList.remove('modal-open');
     });
 
-    body.addEventListener('keydown', (evt) => {
-      if (evt.key === 'Escape') {
+    body.addEventListener('keydown', (down) => {
+      if (down.key === 'Escape') {
         bigPicture.classList.add('hidden');
         body.classList.remove('modal-open');
       }
