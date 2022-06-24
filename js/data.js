@@ -1,4 +1,4 @@
-import {getRandomPositiveInteger, getRandomArrayElement} from './util.js';
+import { getRandomPositiveInteger, getRandomArrayElement } from './util.js';
 
 const MESSAGES = [
   'Всё отлично!',
@@ -80,4 +80,4 @@ const getSimilarPhotos = (count) => {
 
 const createPhotos = () => getSimilarPhotos(SIMILAR_PHOTO_COUNT);
 
-export{createPhotos};
+export{ createPhotos };

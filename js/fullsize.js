@@ -1,6 +1,6 @@
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
-const bigPictureImg = bigPicture.querySelector('.big-picture__img').querySelector('img');
+const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
 const likesCount = bigPicture.querySelector('.likes-count');
 const commentsCount = bigPicture.querySelector('.comments-count');
 const socialComments = bigPicture.querySelector('.social__comments');
@@ -10,6 +10,7 @@ const commentsLoader = bigPicture.querySelector('.comments-loader');
 const cancel = bigPicture.querySelector('.big-picture__cancel');
 
 const createSocialComments = (comment) => {
+  socialComments.innerHTML = null;
   for (let i = 0; i < comment.length; i++) {
     const socialComment = document.createElement('li');
     socialComment.classList.add('social__comment');
@@ -31,36 +32,38 @@ const createSocialComments = (comment) => {
   }
 };
 
-const renderFullsize = (thumb, data) => {
-  thumb.addEventListener('click', (evt) => {
-    evt.preventDefault();
+cancel.addEventListener('click', () => {
+  hideBigPicture();
+});
 
-    bigPicture.classList.remove('hidden');
-
-    bigPictureImg.src = data.url;
-    likesCount.textContent = data.likes;
-    commentsCount.textContent = data.comments.length;
-
-    createSocialComments(data.comments);
-
-    socialCaption.textContent = data.description;
-
-    socialCommentsCount.classList.add('hidden');
-    commentsLoader.classList.add('hidden');
-    body.classList.add('modal-open');
-
-    cancel.addEventListener('click', () => {
-      bigPicture.classList.add('hidden');
-      body.classList.remove('modal-open');
-    });
-
-    body.addEventListener('keydown', (down) => {
-      if (down.key === 'Escape') {
-        bigPicture.classList.add('hidden');
-        body.classList.remove('modal-open');
-      }
-    });
-  });
+const onModalClose = (evt) => {
+  if (evt.key === 'Escape') {
+    hideBigPicture();
+  }
 };
 
-export{renderFullsize};
+//функциональное выражение используется для всплытия
+//решение коллизии взаимопроникновения
+function hideBigPicture () {
+  bigPicture.classList.add('hidden');
+  body.classList.remove('modal-open');
+  body.removeEventListener('keydown', onModalClose);
+}
+
+const renderFullSize = (data) => {
+  bigPicture.classList.remove('hidden');
+
+  bigPictureImg.src = data.url;
+  likesCount.textContent = data.likes;
+  commentsCount.textContent = data.comments.length;
+  createSocialComments(data.comments);
+  socialCaption.textContent = data.description;
+
+  socialCommentsCount.classList.add('hidden');
+  commentsLoader.classList.add('hidden');
+  body.classList.add('modal-open');
+
+  body.addEventListener('keydown', onModalClose);
+};
+
+export{ renderFullSize };
