@@ -34,7 +34,7 @@ const Like = {
   MAX: 200,
 };
 
-const CommentID = {
+const CommentId = {
   MIN: 1,
   MAX: 999,
 };
@@ -44,19 +44,19 @@ const Comment = {
   MAX: 20,
 };
 
-const commentIDs = [];
+const commentIds = [];
 
-const getCommentIDs = () => {
+const getCommentIds = () => {
   let id;
   do {
-    id = getRandomPositiveInteger(CommentID.MIN, CommentID.MAX);
-  } while (commentIDs.includes(id));
-  commentIDs.push(id);
+    id = getRandomPositiveInteger(CommentId.MIN, CommentId.MAX);
+  } while (commentIds.includes(id));
+  commentIds.push(id);
   return id;
 };
 
 const createComment = () => ({
-  id: getCommentIDs(),
+  id: getCommentIds(),
   avatar: `img/avatar-${getRandomPositiveInteger(Avatar.MIN, Avatar.MAX)}.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES),

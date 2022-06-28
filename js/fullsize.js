@@ -1,3 +1,5 @@
+import { isEscape } from './util.js';
+
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
@@ -37,7 +39,7 @@ cancel.addEventListener('click', () => {
 });
 
 const onModalClose = (evt) => {
-  if (evt.key === 'Escape') {
+  if (isEscape(evt)) {
     hideBigPicture();
   }
 };
