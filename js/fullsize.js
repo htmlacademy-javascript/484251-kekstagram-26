@@ -68,4 +68,4 @@ const renderFullSize = (data) => {
   body.addEventListener('keydown', onModalClose);
 };
 
-export{ renderFullSize };
+export{ renderFullSize, body };

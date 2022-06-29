@@ -5,11 +5,10 @@ const getRandomPositiveInteger = (a, b) => {
   return Math.floor(result);
 };
 
-//eslint-disable-next-line
 const checkStringLength = (string, length) => string.length <= length;
 
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
 const isEscape = (evt) => evt.key === 'Escape';
 
-export { getRandomPositiveInteger, getRandomArrayElement, isEscape };
+export { getRandomPositiveInteger, getRandomArrayElement, isEscape, checkStringLength };
