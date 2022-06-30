@@ -1,5 +1,7 @@
 import { isEscape } from './util.js';
 
+const COUNT_UPLOAD_COMMENTS = 5;
+
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
@@ -11,9 +13,9 @@ const socialCommentsCount = bigPicture.querySelector('.social__comment-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const cancel = bigPicture.querySelector('.big-picture__cancel');
 
-const createSocialComments = (comment) => {
+const createSocialComments = (comment, count = COUNT_UPLOAD_COMMENTS) => {
   socialComments.innerHTML = null;
-  for (let i = 0; i < comment.length; i++) {
+  for (let i = 0; i < count; i++) {
     const socialComment = document.createElement('li');
     socialComment.classList.add('social__comment');
 
@@ -32,6 +34,12 @@ const createSocialComments = (comment) => {
 
     socialComments.appendChild(socialComment);
   }
+
+  // if (count < comment.length) {
+  socialCommentsCount.textContent = `${count} из ${comment.length} комментариев`;
+  // } else {
+  //   socialCommentsCount.textContent = 'Показаны все комментарии';
+  // }
 };
 
 cancel.addEventListener('click', () => {
@@ -53,18 +61,30 @@ function hideBigPicture () {
 }
 
 const renderFullSize = (data) => {
+  const allCommentsCount = data.comments.length;
+  const numberCommentsGroups = Math.ceil(allCommentsCount/COUNT_UPLOAD_COMMENTS);
+  let loaderClicks = 0;
+  socialCommentsCount.textContent = '';
+
   bigPicture.classList.remove('hidden');
+  commentsLoader.classList.remove('hidden');
 
   bigPictureImg.src = data.url;
   likesCount.textContent = data.likes;
-  commentsCount.textContent = data.comments.length;
+  commentsCount.textContent = allCommentsCount;
+
   createSocialComments(data.comments);
+
+  commentsLoader.addEventListener('click', () => {
+    loaderClicks++;
+    if (loaderClicks === numberCommentsGroups - 1) {
+      commentsLoader.classList.add('hidden');
+    }
+    createSocialComments(data.comments, (loaderClicks + 1) * COUNT_UPLOAD_COMMENTS);
+  });
+
   socialCaption.textContent = data.description;
-
-  socialCommentsCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
   body.classList.add('modal-open');
-
   body.addEventListener('keydown', onModalClose);
 };
 
