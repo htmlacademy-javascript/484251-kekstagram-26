@@ -18,11 +18,6 @@ const uploadCancel = imgUploadOverlay.querySelector('#upload-cancel');
 const textHashTags = imgUploadOverlay.querySelector('.text__hashtags');
 const textDescription = imgUploadOverlay.querySelector('.text__description');
 
-uploadFile.addEventListener('change', () => {
-  imgUploadOverlay.classList.remove('hidden');
-  body.classList.add('modal-open');
-});
-
 const closeEditForm = () => {
   imgUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -30,28 +25,11 @@ const closeEditForm = () => {
   document.removeEventListener('keydown', onModalEscKeyDown);
 };
 
-uploadCancel.addEventListener('click', () => {
-  closeEditForm();
-});
-
-//функциональное выражение используется для всплытия
-//решение коллизии взаимопроникновения
-function onModalEscKeyDown (evt) {
-  if(isEscape(evt)) {
-    closeEditForm();
-  }
-}
-
-document.addEventListener('keydown', onModalEscKeyDown);
-
 const onFocusInputPressEsc = (evt) => {
   if(isEscape(evt)) {
     evt.stopPropagation();
   }
 };
-
-textHashTags.addEventListener('keydown', onFocusInputPressEsc);
-textDescription.addEventListener('keydown', onFocusInputPressEsc);
 
 const validateHashTags = (value) => {
   const re = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
@@ -71,7 +49,6 @@ const validateQuantityHashTags = (value) => {
 
 const validateLengthComment = (value) => value.length === 0 || checkStringLength(value, MAX_LENGTH_COMMENT);
 
-
 const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__form',
   errorTextParent: 'img-upload__field-wrapper'
@@ -82,8 +59,29 @@ pristine.addValidator(textHashTags, validateUniqueHashTags, MessagesErrors.NOT_U
 pristine.addValidator(textHashTags, validateQuantityHashTags, MessagesErrors.INCORRECT_QUANTITY_HASHTAGS);
 pristine.addValidator(textDescription, validateLengthComment, MessagesErrors.INCORRECT_LENGTH_COMMENT);
 
+document.addEventListener('keydown', onModalEscKeyDown);
 
 imgUploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   pristine.validate();
 });
+
+uploadFile.addEventListener('change', () => {
+  imgUploadOverlay.classList.remove('hidden');
+  body.classList.add('modal-open');
+});
+
+uploadCancel.addEventListener('click', () => {
+  closeEditForm();
+});
+
+textHashTags.addEventListener('keydown', onFocusInputPressEsc);
+textDescription.addEventListener('keydown', onFocusInputPressEsc);
+
+//функциональное выражение используется для всплытия
+//решение коллизии взаимопроникновения
+function onModalEscKeyDown (evt) {
+  if(isEscape(evt)) {
+    closeEditForm();
+  }
+}
