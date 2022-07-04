@@ -1,10 +1,15 @@
 const SCALE_STEP = 25;
+const SCALE_MIN = 25;
+const SCALE_MAX = 100;
+const SCALE_DEFAULT = 100;
 
 const imgUploadScale = document.querySelector('.img-upload__scale');
 const scaleControlSmaller = imgUploadScale.querySelector('.scale__control--smaller');
 const scaleControlValue = imgUploadScale.querySelector('.scale__control--value');
 const scaleControlBigger = imgUploadScale.querySelector('.scale__control--bigger');
 const imgUploadPreview = document.querySelector('.img-upload__preview img');
+
+scaleControlValue.value = `${SCALE_DEFAULT}%`;
 
 let controlValue = parseInt(scaleControlValue.value, 10);
 
@@ -13,23 +18,27 @@ const showScaledImgPreview = (ctrlVal) => {
   imgUploadPreview.style.transform = `scale(${ctrlVal / 100})`;
 };
 
-showScaledImgPreview(controlValue);
-
-imgUploadScale.addEventListener('click', (evt) => {
+const onScaleChange = (evt) => {
   if (evt.target === scaleControlSmaller) {
-    if (controlValue - SCALE_STEP > 0) {
+    if (controlValue - SCALE_STEP > SCALE_MIN) {
       controlValue -= SCALE_STEP;
     } else {
-      controlValue = 0;
+      controlValue = SCALE_MIN;
     }
     showScaledImgPreview(controlValue);
   }
   if (evt.target === scaleControlBigger) {
-    if (controlValue + SCALE_STEP < 100) {
+    if (controlValue + SCALE_STEP < SCALE_MAX) {
       controlValue += SCALE_STEP;
     } else {
-      controlValue = 100;
+      controlValue = SCALE_MAX;
     }
     showScaledImgPreview(controlValue);
   }
-});
+};
+
+showScaledImgPreview(controlValue);
+
+imgUploadScale.addEventListener('click', onScaleChange);
+
+export { imgUploadPreview };
