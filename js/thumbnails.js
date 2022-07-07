@@ -1,4 +1,4 @@
-import { renderFullSize } from './fullsize.js';
+import { renderFullSize } from './full-size.js';
 
 const renderThumbnails = (thumbnails) => {
   const pictures = document.querySelector('.pictures');

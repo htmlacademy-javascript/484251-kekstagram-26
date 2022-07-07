@@ -1,4 +1,4 @@
-import { body } from './fullsize.js';
+import { body } from './full-size.js';
 import { isEscape, checkStringLength } from './util.js';
 
 const MAX_QUANTITY_HASHTAGS = 5;
