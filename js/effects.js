@@ -1,6 +1,7 @@
 import { imgUploadPreview } from './scale.js';
 
 const effectLevel = document.querySelector('.effect-level');
+const effectLevelValue = effectLevel.querySelector('.effect-level__value');
 const effectLevelSlider = effectLevel.querySelector('.effect-level__slider');
 const effectsList = document.querySelector('.effects__list');
 
@@ -76,19 +77,17 @@ const applyNoneEffect = () => {
   imgUploadPreview.classList = '';
   imgUploadPreview.classList.add('effects__preview--none');
   imgUploadPreview.style.filter = '';
+  effectLevelValue.value = '';
   effectLevelSlider.setAttribute('disabled', true);
   effectLevel.classList.add('hidden');
 };
 
-const applyEffect = ({effect, options, filterName, unit}) => {
+const applyEffect = ({effect, options}) => {
   effectLevelSlider.removeAttribute('disabled');
   effectLevel.classList.remove('hidden');
   imgUploadPreview.classList = '';
   imgUploadPreview.classList.add(`effect__preview--${effect}`);
   effectLevelSlider.noUiSlider.updateOptions(options);
-  effectLevelSlider.noUiSlider.on('update', () => {
-    imgUploadPreview.style.filter = `${filterName}(${effectLevelSlider.noUiSlider.get()}${unit})`;
-  });
 };
 
 const onEffectChange = (evt) => {
@@ -107,6 +106,15 @@ noUiSlider.create(effectLevelSlider, {
   start: 1,
   step: 0.1,
   connect: 'lower',
+});
+
+effectLevelSlider.noUiSlider.on('update', () => {
+  const effectValue = document.querySelector('input[name="effect"]:checked');
+  if (effectValue && effectValue.value !== 'none') {
+    const {filterName, unit} = effectsSettings[effectValue.value] ;
+    effectLevelValue.value = effectLevelSlider.noUiSlider.get();
+    imgUploadPreview.style.filter = `${filterName}(${effectLevelSlider.noUiSlider.get()}${unit})`;
+  }
 });
 
 effectsList.addEventListener('change', onEffectChange);

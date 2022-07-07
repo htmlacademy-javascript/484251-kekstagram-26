@@ -9,17 +9,18 @@ const scaleControlValue = imgUploadScale.querySelector('.scale__control--value')
 const scaleControlBigger = imgUploadScale.querySelector('.scale__control--bigger');
 const imgUploadPreview = document.querySelector('.img-upload__preview img');
 
-scaleControlValue.value = `${SCALE_DEFAULT}%`;
-imgUploadPreview.style.transform = 'scale(1)';
+let controlValue;
 
-let controlValue = parseInt(scaleControlValue.value, 10);
+const resetScale = () => {
+  scaleControlValue.value = `${SCALE_DEFAULT}%`;
+  imgUploadPreview.style.transform = 'scale(1)';
+  controlValue = parseInt(scaleControlValue.value, 10);
+};
 
 const showScaledImgPreview = (ctrlVal) => {
   scaleControlValue.value = `${ctrlVal}%`;
   imgUploadPreview.style.transform = `scale(${ctrlVal / 100})`;
 };
-
-showScaledImgPreview(controlValue);
 
 const onScaleDecrease = () => {
   if (controlValue - SCALE_STEP > SCALE_MIN) {
@@ -39,9 +40,10 @@ const onScaleIncrease = () => {
   showScaledImgPreview(controlValue);
 };
 
+resetScale();
+showScaledImgPreview(controlValue);
+
 scaleControlSmaller.addEventListener('click', onScaleDecrease);
 scaleControlBigger.addEventListener('click', onScaleIncrease);
 
-controlValue = SCALE_DEFAULT;
-
-export { SCALE_DEFAULT, scaleControlValue, imgUploadPreview, showScaledImgPreview };
+export { scaleControlValue, imgUploadPreview, showScaledImgPreview, resetScale };
