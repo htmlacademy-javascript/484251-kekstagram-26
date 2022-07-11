@@ -1,4 +1,7 @@
-import { body } from './full-size.js';
+import { body } from './user-modal.js';
+import { sendData } from './api.js';
+import { showError } from './error.js';
+import { showSuccess } from './success.js';
 import { isEscape, checkStringLength } from './util.js';
 
 const MAX_QUANTITY_HASHTAGS = 5;
@@ -15,8 +18,19 @@ const imgUploadForm = document.querySelector('.img-upload__form');
 const uploadFile = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const uploadCancel = imgUploadOverlay.querySelector('#upload-cancel');
+const uploadSubmit = imgUploadOverlay.querySelector('#upload-submit');
 const textHashTags = imgUploadOverlay.querySelector('.text__hashtags');
 const textDescription = imgUploadOverlay.querySelector('.text__description');
+
+const blockSubmitButton = () => {
+  uploadSubmit.disabled = true;
+  uploadSubmit.textContent = 'Публикую...';
+};
+
+const unblockSubmitButton = () => {
+  uploadSubmit.disabled = false;
+  uploadSubmit.textContent = 'Опубликовать';
+};
 
 const closeEditForm = () => {
   imgUploadOverlay.classList.add('hidden');
@@ -61,10 +75,27 @@ pristine.addValidator(textDescription, validateLengthComment, MessagesErrors.INC
 
 document.addEventListener('keydown', onModalEscKeyDown);
 
-imgUploadForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
+const setUserFormSubmit = (onSuccess) => {
+  imgUploadForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(
+        () => {
+          onSuccess();
+          showSuccess();
+          unblockSubmitButton();
+        },
+        () => {
+          showError();
+          unblockSubmitButton();
+        },
+        new FormData(evt.target),
+      );
+    }
+  });
+};
 
 uploadFile.addEventListener('change', () => {
   imgUploadOverlay.classList.remove('hidden');
@@ -85,3 +116,5 @@ function onModalEscKeyDown (evt) {
     closeEditForm();
   }
 }
+
+export { setUserFormSubmit, closeEditForm, uploadFile, imgUploadOverlay };

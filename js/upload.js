@@ -10,4 +10,3 @@ const onUploadFile = () => {
 };
 
 imgUploadControl.addEventListener('click', onUploadFile);
-
