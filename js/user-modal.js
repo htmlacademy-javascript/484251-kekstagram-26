@@ -65,7 +65,7 @@ const renderFullSize = (data) => {
     commentsLoader.classList.add('hidden');
   }
 
-  //Использован onclick, поскольку не получается иным способом снять обработчик
+  //использован onclick, поскольку не получается иным способом снять обработчик
   commentsLoader.onclick = () => {
     loaderClicks++;
     if (loaderClicks === numberCommentsGroups - 1) {

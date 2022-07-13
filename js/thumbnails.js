@@ -1,4 +1,4 @@
-import { renderFullSize } from './full-size.js';
+import { renderFullSize } from './user-modal.js';
 
 const renderThumbnails = (thumbnails) => {
   const pictures = document.querySelector('.pictures');
@@ -7,15 +7,15 @@ const renderThumbnails = (thumbnails) => {
 
   thumbnails.forEach((photo) => {
     const {url, likes, comments} = photo;
-    const miniPicture = pictureTemplate.cloneNode(true);
-    miniPicture.querySelector('.picture__img').src = url;
-    miniPicture.querySelector('.picture__likes').textContent = likes;
-    miniPicture.querySelector('.picture__comments').textContent = comments.length;
-    miniPicture.addEventListener('click', (evt) => {
+    const miniPictureNode = pictureTemplate.cloneNode(true);
+    miniPictureNode.querySelector('.picture__img').src = url;
+    miniPictureNode.querySelector('.picture__likes').textContent = likes;
+    miniPictureNode.querySelector('.picture__comments').textContent = comments.length;
+    miniPictureNode.addEventListener('click', (evt) => {
       evt.preventDefault();
       renderFullSize(photo);
     });
-    miniPictureListFragment.appendChild(miniPicture);
+    miniPictureListFragment.appendChild(miniPictureNode);
   });
   pictures.appendChild(miniPictureListFragment);
 };
