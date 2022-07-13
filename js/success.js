@@ -6,30 +6,41 @@ const success = document.querySelector('#success').content.querySelector('.succe
 const successNode = success.cloneNode(true);
 const successInner = successNode.querySelector('.success__inner');
 const successButton = successNode.querySelector('.success__button');
-const successFragment = document.createDocumentFragment();
+
+body.appendChild(successNode);
+successNode.classList.add('hidden');
 
 const onCloseSuccess = () => {
   successNode.classList.add('hidden');
-  imgUploadOverlay.classList.add('hidden');
+  document.removeEventListener('keydown', onEscCloseSuccess);
+  document.removeEventListener('click', onOuterClickCloseSuccess);
 };
 
 const showSuccess = () => {
-  successFragment.appendChild(successNode);
-  body.appendChild(successFragment);
+  successNode.classList.remove('hidden');
   imgUploadOverlay.classList.add('hidden');
   successButton.addEventListener('click', onCloseSuccess);
-  document.addEventListener('keydown', () => {
-    if(isEscape) {
-      onCloseSuccess();
-    }
-  });
-  document.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    if(evt.target !== successInner) {
-      onCloseSuccess();
-    }
-  });
+  document.addEventListener('keydown', onEscCloseSuccess);
+  document.addEventListener('click', onOuterClickCloseSuccess);
 };
+
+
+//функциональное выражение используется для всплытия
+//решение коллизии взаимопроникновения
+function onEscCloseSuccess () {
+  if(isEscape) {
+    onCloseSuccess();
+  }
+}
+
+//функциональное выражение используется для всплытия
+//решение коллизии взаимопроникновения
+function onOuterClickCloseSuccess (evt) {
+  evt.preventDefault();
+  if(evt.target !== successInner) {
+    onCloseSuccess();
+  }
+}
 
 export { showSuccess };
 

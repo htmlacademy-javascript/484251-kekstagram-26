@@ -36,7 +36,7 @@ const closeEditForm = () => {
   imgUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   imgUploadForm.reset();
-  document.removeEventListener('keydown', onModalEscKeyDown);
+  document.removeEventListener('keydown', onEditFormEscKeyDown);
 };
 
 const onFocusInputPressEsc = (evt) => {
@@ -48,12 +48,12 @@ const onFocusInputPressEsc = (evt) => {
 const validateHashTags = (value) => {
   const re = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
   const hashTags = value.toLowerCase().trim().split(' ');
-  return hashTags.every((hashTag) => re.test(hashTag));
+  return value === '' || hashTags.every((hashTag) => re.test(hashTag));
 };
 
 const validateUniqueHashTags = (value) => {
   const hashTags = value.toLowerCase().trim().split(' ');
-  return hashTags.length === 0 || hashTags.length === new Set(hashTags).size;
+  return hashTags.length === new Set(hashTags).size;
 };
 
 const validateQuantityHashTags = (value) => {
@@ -73,7 +73,7 @@ pristine.addValidator(textHashTags, validateUniqueHashTags, MessagesErrors.NOT_U
 pristine.addValidator(textHashTags, validateQuantityHashTags, MessagesErrors.INCORRECT_QUANTITY_HASHTAGS);
 pristine.addValidator(textDescription, validateLengthComment, MessagesErrors.INCORRECT_LENGTH_COMMENT);
 
-document.addEventListener('keydown', onModalEscKeyDown);
+document.addEventListener('keydown', onEditFormEscKeyDown);
 
 const setUserFormSubmit = (onSuccess) => {
   imgUploadForm.addEventListener('submit', (evt) => {
@@ -111,10 +111,10 @@ textDescription.addEventListener('keydown', onFocusInputPressEsc);
 
 //функциональное выражение используется для всплытия
 //решение коллизии взаимопроникновения
-function onModalEscKeyDown (evt) {
+function onEditFormEscKeyDown (evt) {
   if(isEscape(evt)) {
     closeEditForm();
   }
 }
 
-export { setUserFormSubmit, closeEditForm, uploadFile, imgUploadOverlay };
+export { setUserFormSubmit, closeEditForm, imgUploadOverlay };
