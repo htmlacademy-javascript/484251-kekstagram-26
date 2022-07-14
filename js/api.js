@@ -8,6 +8,7 @@ const getData = (onSuccess, onFail) => {
     .then((response) => response.json())
     .then((pictures) => {
       onSuccess(pictures);
+      return pictures;
     })
     .catch(() => onFail('Ошибка при загрузке данных с сервера'));
 };
