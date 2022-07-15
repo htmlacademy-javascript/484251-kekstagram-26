@@ -112,7 +112,7 @@ textDescription.addEventListener('keydown', onFocusInputPressEsc);
 //функциональное выражение используется для всплытия
 //решение коллизии взаимопроникновения
 function onEditFormEscKeyDown (evt) {
-  if(isEscape(evt)) {
+  if(isEscape(evt) && !imgUploadOverlay.classList.contains('hidden')) {
     closeEditForm();
   }
 }

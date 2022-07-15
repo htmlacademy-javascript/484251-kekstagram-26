@@ -1,6 +1,6 @@
 const Urls = {
   GET: 'https://26.javascript.pages.academy/kekstagram/data',
-  SEND: 'https://26.javascript.pages.academy/kekstagram1',
+  SEND: 'https://26.javascript.pages.academy/kekstagram',
 };
 
 const getData = (onSuccess, onFail) => {

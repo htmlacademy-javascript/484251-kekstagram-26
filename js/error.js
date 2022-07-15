@@ -4,7 +4,6 @@ import { imgUploadOverlay } from './user-form.js';
 
 const error = document.querySelector('#error').content.querySelector('.error');
 const errorNode = error.cloneNode(true);
-const errorInner = errorNode.querySelector('.error__inner');
 const errorButton = errorNode.querySelector('.error__button');
 
 body.appendChild(errorNode);
@@ -14,7 +13,12 @@ const onCloseError = () => {
   errorNode.classList.add('hidden');
   imgUploadOverlay.classList.remove('hidden');
   document.removeEventListener('keydown', onEscCloseError);
-  document.removeEventListener('click', onOuterClickCloseError);
+};
+
+const onOuterClickCloseError= (evt) => {
+  if(evt.target.classList.contains('error')) {
+    onCloseError();
+  }
 };
 
 const showError = () => {
@@ -22,22 +26,13 @@ const showError = () => {
   errorNode.classList.remove('hidden');
   errorButton.addEventListener('click', onCloseError);
   document.addEventListener('keydown', onEscCloseError);
-  document.addEventListener('click', onOuterClickCloseError);
+  errorNode.addEventListener('click', onOuterClickCloseError);
 };
 
 //функциональное выражение используется для всплытия
 //решение коллизии взаимопроникновения
 function onEscCloseError () {
   if(isEscape) {
-    onCloseError();
-  }
-}
-
-//функциональное выражение используется для всплытия
-//решение коллизии взаимопроникновения
-function onOuterClickCloseError (evt) {
-  evt.preventDefault();
-  if(evt.target !== errorInner) {
     onCloseError();
   }
 }
