@@ -1,6 +1,6 @@
 const Urls = {
   GET: 'https://26.javascript.pages.academy/kekstagram/data',
-  SEND: 'https://26.javascript.pages.academy/kekstagram1',
+  SEND: 'https://26.javascript.pages.academy/kekstagram',
 };
 
 const getData = (onSuccess, onFail) => {
@@ -8,6 +8,7 @@ const getData = (onSuccess, onFail) => {
     .then((response) => response.json())
     .then((pictures) => {
       onSuccess(pictures);
+      return pictures;
     })
     .catch(() => onFail('Ошибка при загрузке данных с сервера'));
 };

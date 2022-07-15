@@ -24,14 +24,30 @@ const showAlert = (message) => {
   alertContainer.style.fontSize = '18px';
   alertContainer.style.textAlign = 'center';
   alertContainer.style.backgroundColor = 'red';
-
   alertContainer.textContent = message;
-
   document.body.append(alertContainer);
-
   setTimeout(() => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
 };
 
-export { getRandomPositiveInteger, getRandomArrayElement, isEscape, checkStringLength, showAlert };
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+// function throttle (callback, delayBetweenFrames) {
+//   let lastTime = 0;
+//   return (...rest) => {
+//     const now = new Date();
+//     if (now - lastTime >= delayBetweenFrames) {
+//       callback.apply(this, rest);
+//       lastTime = now;
+//     }
+//   };
+// }
+
+export { getRandomPositiveInteger, getRandomArrayElement, isEscape, checkStringLength, showAlert, debounce };
