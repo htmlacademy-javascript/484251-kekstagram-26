@@ -117,4 +117,9 @@ function onEditFormEscKeyDown (evt) {
   }
 }
 
-export { setUserFormSubmit, closeEditForm, imgUploadOverlay };
+export {
+  setUserFormSubmit,
+  closeEditForm,
+  imgUploadOverlay,
+  uploadFile
+};

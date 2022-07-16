@@ -2,7 +2,7 @@ import { debounce } from './util.js';
 import { renderThumbnails } from './thumbnails.js';
 
 const QUANTITY_RANDOM_PICTURES = 10;
-const RERENDER_DELAY = 500;
+const RERENDER_DELAY = 2000;
 
 const imgFilters = document.querySelector('.img-filters');
 const filterButtons = imgFilters.querySelectorAll('button');

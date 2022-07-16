@@ -46,4 +46,9 @@ showScaledImgPreview(controlValue);
 scaleControlSmaller.addEventListener('click', onScaleDecrease);
 scaleControlBigger.addEventListener('click', onScaleIncrease);
 
-export { scaleControlValue, imgUploadPreview, showScaledImgPreview, resetScale };
+export {
+  scaleControlValue,
+  imgUploadPreview,
+  showScaledImgPreview,
+  resetScale
+};

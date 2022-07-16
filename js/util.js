@@ -50,4 +50,10 @@ function debounce (callback, timeoutDelay = 500) {
 //   };
 // }
 
-export { getRandomPositiveInteger, getRandomArrayElement, isEscape, checkStringLength, showAlert, debounce };
+export {
+  getRandomPositiveInteger,
+  getRandomArrayElement,
+  isEscape, checkStringLength,
+  showAlert,
+  debounce
+};
