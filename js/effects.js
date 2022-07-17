@@ -82,7 +82,7 @@ const applyNoneEffect = () => {
   effectLevel.classList.add('hidden');
 };
 
-const applyEffect = ({effect, options}) => {
+const applySomeEffect = ({effect, options}) => {
   effectLevelSlider.removeAttribute('disabled');
   effectLevel.classList.remove('hidden');
   imgUploadPreview.classList = '';
@@ -94,7 +94,7 @@ const onEffectChange = (evt) => {
   if (evt.target.value === 'none') {
     applyNoneEffect();
   } else {
-    applyEffect(effectsSettings[evt.target.value]);
+    applySomeEffect(effectsSettings[evt.target.value]);
   }
 };
 
