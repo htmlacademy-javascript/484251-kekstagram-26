@@ -2,7 +2,7 @@ import { debounce } from './util.js';
 import { renderThumbnails } from './thumbnails.js';
 
 const QUANTITY_RANDOM_PICTURES = 10;
-const RERENDER_DELAY = 2000;
+const RERENDER_DELAY = 500;
 
 const imgFilters = document.querySelector('.img-filters');
 const filterButtons = imgFilters.querySelectorAll('button');
@@ -25,15 +25,17 @@ const changeActiveButton = (clickedButton) => {
   clickedButton.classList.add('img-filters__button--active');
 };
 
+const debouncedFilter = debounce((id, photos) => {
+  clearThumbnails();
+  renderThumbnails(FiltersFunctions[id](photos));
+}, RERENDER_DELAY);
+
 const initFilters = (photos) => {
   imgFilters.classList.remove('img-filters--inactive');
   filterButtons.forEach((button) => {
     button.addEventListener('click', (evt) => {
       changeActiveButton(evt.target);
-      debounce(() => {
-        clearThumbnails();
-        renderThumbnails(FiltersFunctions[evt.target.id](photos));
-      }, RERENDER_DELAY)();
+      debouncedFilter(evt.target.id, photos);
     });
   });
 };
