@@ -31,8 +31,8 @@ const showError = () => {
 
 //функциональное выражение используется для всплытия
 //решение коллизии взаимопроникновения
-function onEscCloseError () {
-  if(isEscape) {
+function onEscCloseError (evt) {
+  if(isEscape(evt)) {
     onCloseError();
   }
 }
