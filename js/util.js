@@ -1,16 +1,6 @@
 const ALERT_SHOW_TIME = 5000;
 
-const getRandomPositiveInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-
 const checkStringLength = (string, length) => string.length <= length;
-
-const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
-
 const isEscape = (evt) => evt.key === 'Escape';
 
 const showAlert = (message) => {
@@ -40,8 +30,6 @@ function debounce (callback, timeoutDelay = 500) {
 }
 
 export {
-  getRandomPositiveInteger,
-  getRandomArrayElement,
   checkStringLength,
   showAlert,
   isEscape,

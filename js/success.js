@@ -30,8 +30,8 @@ const showSuccess = () => {
 
 //функциональное выражение используется для всплытия
 //решение коллизии взаимопроникновения
-function onEscCloseSuccess () {
-  if(isEscape) {
+function onEscCloseSuccess (evt) {
+  if(isEscape(evt)) {
     onCloseSuccess();
   }
 }
